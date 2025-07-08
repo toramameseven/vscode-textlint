@@ -42,6 +42,7 @@ export class StatusBar {
     this._supports = supports;
     this._delegate.text = this._status.label;
     window.onDidChangeActiveTextEditor((te) => this.updateWith(te));
+    this._delegate.command = "textlint.statusBarMenu"; // ステータスバークリックでコマンド実行
     this.update();
   }
 
