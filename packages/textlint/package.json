@@ -69,6 +69,16 @@
           "default": null,
           "description": "A absolute path to textlint config file."
         },
+        "textlint.optionalConfigPathes": {
+          "default": [],
+          "type": [
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "A absolute pathes to textlint config files"
+        },
         "textlint.ignorePath": {
           "type": "string",
           "default": null,

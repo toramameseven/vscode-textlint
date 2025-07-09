@@ -89,16 +89,20 @@ You need to reopen the workspace after installing textlint.`
     commands.registerCommand("textlint.executeAutofix", makeAutoFixFn(client)),
     commands.registerCommand("textlint.showOutputChannel", () => client.outputChannel.show()),
     commands.registerCommand("textlint.statusBarMenu", async () => {
-      const items = [
-        { label: "List1", description: "リスト1の説明" },
-        { label: "List2", description: "リスト2の説明" },
-        { label: "List3", description: "リスト3の説明" },
-      ];
-      const picked = await window.showQuickPick(items, {
-        placeHolder: "リストから選択してください",
-      });
-      if (picked) {
-        window.showInformationMessage(`選択: ${picked.label}`);
+      const pathes = getConfig<string[]>("optionalConfigPathes", []);
+      if (pathes.length > 0) {
+        const items = pathes.map((path) => {
+          return {
+            label: path,
+            description: path,
+          };
+        });
+        const picked = await window.showQuickPick(items, {
+          placeHolder: "select a textlint config file",
+        });
+        if (picked) {
+          window.showInformationMessage(`選択: ${picked.label}`);
+        }
       }
     }),
     client.start(),
