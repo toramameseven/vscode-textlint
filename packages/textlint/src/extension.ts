@@ -101,7 +101,14 @@ You need to reopen the workspace after installing textlint.`
           placeHolder: "select a textlint config file",
         });
         if (picked) {
-          window.showInformationMessage(`選択: ${picked.label}`);
+          // ここで設定を更新
+          await workspace.getConfiguration("textlint").update(
+            "configPath",
+            picked.label,
+            // グローバルではなくワークスペース設定を推奨
+            window.activeTextEditor ? false : true
+          );
+          window.showInformationMessage(`選択: ${picked.label} を textlint.configPath に設定しました`);
         }
       }
     }),

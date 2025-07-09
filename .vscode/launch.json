@@ -1,0 +1,76 @@
+// A launch configuration that compiles the extension and then opens it inside a new window
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/packages/test",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/textlint",
+        "--disable-extensions"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/packages/textlint/dist/*.js"
+      ],
+      "sourceMaps": true,
+      "preLaunchTask": "npm: watch"
+    },
+    {
+      "name": "Run Extension with workspace",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/../test-workspace/test.code-workspace",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--disable-extensions"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/dist/*.js"
+      ],
+      "stopOnEntry": false,
+      "sourceMaps": true,
+      "preLaunchTask": "npm: watch"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Server",
+      "address": "localhost",
+      "protocol": "inspector",
+      "port": 6011,
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/dist/*.js"
+      ]
+    },
+    {
+      "name": "Test Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/../test",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test",
+        "--disable-extensions"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/dist/*.js"
+      ],
+      "preLaunchTask": "npm: pretest"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run Extension + Attach Server",
+      "configurations": [
+        "Run Extension",
+        "Attach to Server"
+      ]
+    }
+  ]
+}
